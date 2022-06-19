@@ -80,12 +80,7 @@ impl Plugin for RapierDebugRenderPlugin {
                 enabled: true,
                 pipeline: DebugRenderPipeline::new(self.style, self.mode),
             })
-            .add_system_to_stage(
-                CoreStage::PostUpdate,
-                debug_render_scene
-                    .after(transform_propagate_system)
-                    .after(parent_update_system),
-            );
+            .add_system_to_stage(CoreStage::Last, debug_render_scene);
     }
 }
 
