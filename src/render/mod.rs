@@ -80,10 +80,7 @@ impl Plugin for RapierDebugRenderPlugin {
                 enabled: true,
                 pipeline: DebugRenderPipeline::new(self.style, self.mode),
             })
-            .add_system_to_stage(
-                CoreStage::PostUpdate,
-                debug_render_scene.before("draw_lines"),
-            );
+            .add_system_to_stage(CoreStage::PostUpdate, debug_render_scene);
     }
 }
 
