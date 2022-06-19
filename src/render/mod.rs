@@ -1,5 +1,6 @@
 use crate::plugin::RapierContext;
 use bevy::prelude::*;
+use bevy::transform::transform_propagate_system;
 use lines::DebugLines;
 use rapier::math::{Point, Real};
 use rapier::pipeline::{DebugRenderBackend, DebugRenderObject, DebugRenderPipeline};
@@ -78,7 +79,10 @@ impl Plugin for RapierDebugRenderPlugin {
                 enabled: true,
                 pipeline: DebugRenderPipeline::new(self.style, self.mode),
             })
-            .add_system_to_stage(CoreStage::PostUpdate, debug_render_scene);
+            .add_system_to_stage(
+                CoreStage::PostUpdate,
+                debug_render_scene.after(transform_propagate_system),
+            );
     }
 }
 
