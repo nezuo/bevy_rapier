@@ -1,4 +1,5 @@
 use crate::plugin::RapierContext;
+use bevy::hierarchy::parent_update_system;
 use bevy::prelude::*;
 use bevy::transform::transform_propagate_system;
 use lines::DebugLines;
@@ -81,7 +82,9 @@ impl Plugin for RapierDebugRenderPlugin {
             })
             .add_system_to_stage(
                 CoreStage::PostUpdate,
-                debug_render_scene.after(transform_propagate_system),
+                debug_render_scene
+                    .after(transform_propagate_system)
+                    .after(parent_update_system),
             );
     }
 }
